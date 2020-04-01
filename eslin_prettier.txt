@@ -1,0 +1,9 @@
+extenção editorconfig - gerar editor config
+
+yarn add eslint -D
+
+yarn eslint --init
+
+yarn add eslint-config-prettier eslint-plugin-prettier -D
+
+yarn add babel-eslint -D
