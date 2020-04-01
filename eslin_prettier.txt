@@ -7,3 +7,6 @@ yarn eslint --init
 yarn add eslint-config-prettier eslint-plugin-prettier -D
 
 yarn add babel-eslint -D
+
+Definir rotas no react
+yarn add react-router-dom
