@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Container, Form, SubmitButton, List } from './style';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
 import api from '../../services/api';
 
 class Main extends Component {
     state = {
         newRepo: '',
-        repositories: [
-            { name: 'luckascalheiros/Estudo_javaScript_Git' },
-            { name: 'teste/Estudo_javaScript_Git' },
-            { name: 'google/Estudo_javaScript_Git' },
-            { name: 'rocketseat/Estudo_javaScript_Git' }
-        ],
+        repositories: [],
         loading: false
     };
 
@@ -20,6 +16,24 @@ class Main extends Component {
             newRepo: event.target.value
         });
     };
+
+    //carrega dados assim que a pagina abre
+    componentDidMount() {
+        const repositores = localStorage.getItem('repositores');
+        if (repositores) {
+            this.setState({
+                repositories: JSON.parse(repositores)
+            });
+        }
+    }
+
+    //salva dados do local storage - testa a diferença do estaodo atual para o estado anterior
+    componentDidUpdate(_, prevState) {
+        const { repositories } = this.state;
+        if (prevState.repositores !== repositories) {
+            localStorage.setItem('repositores', JSON.stringify(repositories));
+        }
+    }
 
     setRepo = async event => {
         event.preventDefault();
@@ -34,8 +48,11 @@ class Main extends Component {
 
         const response = await api.get(`/repos/${newRepo}`);
 
+        const { full_name, url } = response.data;
+
         const data = {
-            name: response.data.full_name
+            name: full_name,
+            url: url
         };
 
         this.setState({
@@ -75,9 +92,15 @@ class Main extends Component {
 
                 <List>
                     {repositories.map((item, index) => (
-                        <li Key={index}>
+                        <li key={index}>
                             <span>{item.name}</span>
-                            <a href="">Detalhes</a>
+                            <Link
+                                to={`/repository/${encodeURIComponent(
+                                    item.name
+                                )}`}
+                            >
+                                Detalhes
+                            </Link>
                         </li>
                     ))}
                 </List>
