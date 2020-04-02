@@ -1,12 +1,17 @@
 import React, { Component } from 'react';
-import { Container, Form, SubmitButton } from './style';
+import { Container, Form, SubmitButton, List } from './style';
 import { FaGithubAlt, FaPlus, FaSpinner } from 'react-icons/fa';
 import api from '../../services/api';
 
 class Main extends Component {
     state = {
         newRepo: '',
-        repositories: [],
+        repositories: [
+            { name: 'luckascalheiros/Estudo_javaScript_Git' },
+            { name: 'teste/Estudo_javaScript_Git' },
+            { name: 'google/Estudo_javaScript_Git' },
+            { name: 'rocketseat/Estudo_javaScript_Git' }
+        ],
         loading: false
     };
 
@@ -43,7 +48,7 @@ class Main extends Component {
     };
 
     render() {
-        const { newRepo, loading } = this.state;
+        const { newRepo, loading, repositories } = this.state;
 
         return (
             <Container>
@@ -67,6 +72,15 @@ class Main extends Component {
                         )}
                     </SubmitButton>
                 </Form>
+
+                <List>
+                    {repositories.map((item, index) => (
+                        <li Key={index}>
+                            <span>{item.name}</span>
+                            <a href="">Detalhes</a>
+                        </li>
+                    ))}
+                </List>
             </Container>
         );
     }

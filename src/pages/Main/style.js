@@ -91,3 +91,32 @@ export const SubmitButton = styled.button.attrs(props => ({
             }
         `}
 `;
+
+export const List = styled.ul`
+    padding: 10px 30px;
+    list-style: none;
+    margin-top: 30px;
+    border: 1px solid #eee;
+    border-radius: 10px;
+
+    li {
+        padding: 20px 0;
+
+        display: flex;
+        flex-direction: row;
+
+        /* Justifica total os objetos */
+        justify-content: space-between;
+        align-items: center;
+
+        & + li {
+            border-top: 1px solid #eee;
+        }
+    }
+
+    a {
+        color: #7159c1;
+        /* retira marcação soblinhada do link */
+        text-decoration: none;
+    }
+`;
