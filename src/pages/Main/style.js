@@ -67,6 +67,11 @@ export const SubmitButton = styled.button.attrs(props => ({
     type: 'submit',
     disabled: props.load
 }))`
+    &:hover {
+        background: #000;
+    }
+
+    transition: all 3s;
     background: #7159c1;
     border: 0;
     padding: 0 15px;
